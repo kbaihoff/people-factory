@@ -10,8 +10,10 @@ function handleSubmit(ev) {
   document.querySelector('h1').textContent = newTitle // Changes heading 1
 
   const newPara = name + " thinks that Xterns logo should be " + fcolor + " instead"
-  document.querySelector('p.emptyPara').textContent = newPara // Changes paragraph
-  document.querySelector('p.emptyPara').style.color = fcolor // Changes text color
+  const x = document.querySelector('p.emptyPara')
+  x.textContent = newPara // Changes paragraph
+  x.style.color = 'white' // Changes text color
+  x.style.backgroundColor = fcolor // Changes border color
 }
 
 personForm.addEventListener('submit', handleSubmit)
