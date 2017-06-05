@@ -35,7 +35,17 @@ function handleSubmit(ev) {
   document.querySelector('p.emptyPara').textContent = newPara // Changes paragraph
   document.querySelector('form#more').style.display = 'block' // Make form 2 visible
 }
-function handleSubmit2(ev) {}
+function handleSubmit2(ev) {
+  ev.preventDefault()
+  const f = ev.target
+  const school = f.school.value
+  const state = f.homeState.value
+
+  document.querySelector('h3').textContent = "Here is your mini biography:"
+  const newPara = "Hello. My name is [still need to get name from previous form] and I am from " + state + ". I currently go to school at " + school + " in Indiana, which is a requirement to come to Xtern... I think. Anyway, yeah! Here is my second form!"
+
+  document.querySelector('p.e2').textContent = newPara
+}
 
 personForm.addEventListener('submit', handleSubmit)
 more.addEventListener('submit', handleSubmit2)
