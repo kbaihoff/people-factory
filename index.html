@@ -7,25 +7,24 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  
   <body>
     <h1>A Factory of People</h1>
-
-    <p>This is some text.</p>
-    <p>This is some more.</p>
-    <p class="special">So special, y'all!</p>
-    <p>Considerably less special</p>
-    <p class="special">Special again.</p>
-    
     <section>
-        <div>
-            <form>
-                <p>
-                    <label for="personName">Name</label>
-                    <input type="text" name="personName">
-                </p>
-            </form>
-        </div>
+      <div class="special">
+        <form id="personForm">
+          <p>
+            <label for="personName">Name</label>
+            <input type="text" name="personName">
+          </p>
+          
+          <p>
+            <button type="submit">Go</button>
+          </p>
+        </form>
+      </div>
     </section>
 
+    <script src="index.js"></script>
   </body>
 </html>
