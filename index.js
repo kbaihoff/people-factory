@@ -6,10 +6,12 @@ function handleSubmit(ev) {
   const name = f.personName.value
   const fcolor = f.faveColor.value
 
-  const newTitle = name + "'s favorite color is " + fcolor;
+  const newTitle = name + "'s favorite color is " + fcolor
   document.querySelector('h1').textContent = newTitle // Changes heading 1
 
-  document.querySelector('p.emptyPara').textContent = name + " thinks that Xterns logo should be " + fcolor // Changes para
+  const newPara = name + " thinks that Xterns logo should be " + fcolor + " instead"
+  document.querySelector('p.emptyPara').textContent = newPara // Changes paragraph
+  document.querySelector('p.emptyPara').style.color = fcolor // Changes text color
 }
 
 personForm.addEventListener('submit', handleSubmit)
