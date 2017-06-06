@@ -4,8 +4,12 @@ const more = document.querySelector('form#more')
 function handleSubmit(ev) {
   ev.preventDefault()
   const f = ev.target // should give us the object submitted (the form)
+  const details = document.querySelector('#details')
   const name = f.personName.value
   const fcolor = f.faveColor.value
+
+  details.innerHTML = '<em>' + name + '<em>'
+  // Text content would take 'em' as part of the string, allows HTML to be put in the string
 
   const newTitle = "This page will be all about " + name
   document.querySelector('h1').style.color = fcolor
