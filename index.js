@@ -9,6 +9,9 @@ function handleSubmit(ev) {
   const fcolor = f.faveColor.value
   const favoriteColor = f.favoriteColor.value // From class
   const age = f.age.value
+  const colorDiv = `
+    <div style="background-color: ${favoriteColor}; width: 100px; height: 50px"></div>
+  ` // use backticks for these
 
   // details.innerHTML = `<em>${name}<em>`
   // Text content would take 'em' as part of the string, allows HTML to be put in the string
@@ -20,7 +23,7 @@ function handleSubmit(ev) {
   details.innerHTML = `
     <ul>
       <li>Name: ${name}</li>
-      <li>Favorite Color: ${favoriteColor}</li>
+      <li>Color Block: ${favoriteColor}${colorDiv}</li>
       <li>Age: ${age}</li>
     </ul>
   `
