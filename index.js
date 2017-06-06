@@ -6,11 +6,6 @@ function renderColor(color) {
   colorDiv.style.backgroundColor = color
   colorDiv.style.width = '50px' // Must be strings
   colorDiv.style.height = '30px'
-  
-  // const colorDiv = `
-  //   <div style="background-color: ${color}; width: 50px; height: 30px"></div>
-  // ` // use backticks for these
-
   return colorDiv
 }
 
@@ -26,9 +21,6 @@ function renderList(data) {
     const li = renderListItem(fieldName, data[fieldName])
     ul.appendChild(li)
   })
-  // Gets the keys and puts into an array: ['name', 'favoriteColor', 'age']
-  // data.name === data['name']
-  // Map calls a function that we define and does it on every item in array
   return ul
 }
 
@@ -37,10 +29,7 @@ function handleSubmit(ev) {
   ev.preventDefault()
   const f = ev.target // should give us the object submitted (the form)
   const details = document.querySelector('#details')
-  // const name = f.personName.value
   const fcolor = f.faveColor.value
-  // const favoriteColor = f.favoriteColor.value // From class
-  // const age = f.age.value
   
   const person = {
     name: f.personName.value,
@@ -50,8 +39,6 @@ function handleSubmit(ev) {
 
   details.appendChild(renderList(person))
 
-  // outerHTML includes opening and closing tags
-  // innterHTML only gets what is between the tags
   // details.innerHTML = `
   //   <ul>
   //     <li>Name: ${name}</li>
@@ -60,24 +47,9 @@ function handleSubmit(ev) {
   //   </ul>
   // `
 
-  // const colorDiv = `
-  //   <div style="background-color: ${favoriteColor}; width: 50px; height: 30px"></div>
-  // ` // use backticks for these
-
-  // details.innerHTML = `<em>${name}<em>`
-  // Text content would take 'em' as part of the string, allows HTML to be put in the string
-
   // const em = document.createElement('em')
   // em.textContent = name
   // details.appendChild(em)
-
-
-
-
-
-
-
-
 
 
 
@@ -89,7 +61,6 @@ function handleSubmit(ev) {
     document.querySelector('p.emptyPara').style.color = 'white' // Changes text color
   }
   document.querySelector('p.emptyPara').style.backgroundColor = fcolor // Changes border color
-  // document.querySelector('p').style.alignContent = 'center'
   
   let newPara = name + " thinks that Xtern's logo should be " + fcolor + " instead because s/he loves it oh so much. Here are a couple things that are " + fcolor + ": "
   const array = {
@@ -104,7 +75,6 @@ function handleSubmit(ev) {
     yellow: "higlighers, lemons, the centers of daisies, butter, corn, ducks, cheese, egg yolks, bees, honey, and various traffic signs that no one pays attention to",
   }
   newPara = newPara + (array[fcolor] || "Your color was not yet registered in the database")
-  // console.log(array[fcolor])
 
   document.querySelector('p.emptyPara').textContent = newPara // Changes paragraph
   document.querySelector('form#more').style.display = 'block' // Make form 2 visible
