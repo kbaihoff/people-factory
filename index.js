@@ -8,7 +8,7 @@ function handleSubmit(ev) {
   const name = f.personName.value
   const fcolor = f.faveColor.value
 
-  details.innerHTML = '<em>' + name + '<em>'
+  details.innerHTML = `<em>${name}<em>`
   // Text content would take 'em' as part of the string, allows HTML to be put in the string
 
   const newTitle = "This page will be all about " + name
