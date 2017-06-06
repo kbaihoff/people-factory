@@ -1,6 +1,24 @@
 const personForm = document.querySelector('form#personForm') // don't need first form
 const more = document.querySelector('form#more')
 
+
+
+
+function rederColor(color) {
+  const colorDiv = document.createElement('div')
+  colorDiv.style.backgroundColor = color
+  colorDiv.style.width = '50px' // Must be strings
+  colorDiv.style.height = '30px'
+  
+  // const colorDiv = `
+  //   <div style="background-color: ${color}; width: 50px; height: 30px"></div>
+  // ` // use backticks for these
+
+  return colorDiv
+}
+
+
+
 function handleSubmit(ev) {
   ev.preventDefault()
   const f = ev.target // should give us the object submitted (the form)
@@ -9,9 +27,9 @@ function handleSubmit(ev) {
   const fcolor = f.faveColor.value
   const favoriteColor = f.favoriteColor.value // From class
   const age = f.age.value
-  const colorDiv = `
-    <div style="background-color: ${favoriteColor}; width: 100px; height: 50px"></div>
-  ` // use backticks for these
+  // const colorDiv = `
+  //   <div style="background-color: ${favoriteColor}; width: 50px; height: 30px"></div>
+  // ` // use backticks for these
 
   // details.innerHTML = `<em>${name}<em>`
   // Text content would take 'em' as part of the string, allows HTML to be put in the string
@@ -20,10 +38,32 @@ function handleSubmit(ev) {
   // em.textContent = name
   // details.appendChild(em)
 
+
+  // DAY 2 LAB
+  // const ul = document.createElement('ul')
+  // const liName = document.createElement('li')
+  // const liCol = document.createElement('li')
+  // const liAge = document.createElement('li')
+  // const cb = document.createElement('div')
+  // cb.style.width = 50
+  // cb.style.height = 30
+  // cb.style.backgroundColor = favoriteColor
+  // liName.textContent = `Name: ${name}`
+  // liCol.textContent = "Color Block: " + favoriteColor + " "
+  // liAge.textContent = `Age: ${age}`
+  // ul.appendChild(liName)
+  // liCol.appendChild(cb)
+  // ul.appendChild(liCol)
+  // ul.appendChild(liAge)
+  // details.appendChild(ul)
+  
+
+  // outerHTML includes opening and closing tags
+  // innterHTML only gets what is between the tags
   details.innerHTML = `
     <ul>
       <li>Name: ${name}</li>
-      <li>Color Block: ${favoriteColor}${colorDiv}</li>
+      <li>Color Block: ${favoriteColor}${rederColor(favoriteColor).outerHTML}</li>
       <li>Age: ${age}</li>
     </ul>
   `
