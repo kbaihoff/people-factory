@@ -1,10 +1,7 @@
 const personForm = document.querySelector('form#personForm') // don't need first form
 const more = document.querySelector('form#more')
 
-
-
-
-function rederColor(color) {
+function renderColor(color) {
   const colorDiv = document.createElement('div')
   colorDiv.style.backgroundColor = color
   colorDiv.style.width = '50px' // Must be strings
@@ -17,16 +14,52 @@ function rederColor(color) {
   return colorDiv
 }
 
+function renderListItem(fieldName, value) {
+  const li = document.createElement('li')
+  li.innerHTML = `${fieldName}: ${value}`
+  return li
+}
+
+function renderList(data) {
+  const ul = document.createElement('ul')
+  Object.keys(data).map(function(fieldName) {
+    const li = renderListItem(fieldName, data[fieldName])
+    ul.appendChild(li)
+  })
+  // Gets the keys and puts into an array: ['name', 'favoriteColor', 'age']
+  // data.name === data['name']
+  // Map calls a function that we define and does it on every item in array
+  return ul
+}
 
 
 function handleSubmit(ev) {
   ev.preventDefault()
   const f = ev.target // should give us the object submitted (the form)
   const details = document.querySelector('#details')
-  const name = f.personName.value
+  // const name = f.personName.value
   const fcolor = f.faveColor.value
-  const favoriteColor = f.favoriteColor.value // From class
-  const age = f.age.value
+  // const favoriteColor = f.favoriteColor.value // From class
+  // const age = f.age.value
+  
+  const person = {
+    name: f.personName.value,
+    favoriteColor: renderColor(f.favoriteColor.value).outerHTML,
+    age: f.age.value,
+  }
+
+  details.appendChild(renderList(person))
+
+  // outerHTML includes opening and closing tags
+  // innterHTML only gets what is between the tags
+  // details.innerHTML = `
+  //   <ul>
+  //     <li>Name: ${name}</li>
+  //     <li>Color Block: ${favoriteColor}${renderColor(favoriteColor).outerHTML}</li>
+  //     <li>Age: ${age}</li>
+  //   </ul>
+  // `
+
   // const colorDiv = `
   //   <div style="background-color: ${favoriteColor}; width: 50px; height: 30px"></div>
   // ` // use backticks for these
@@ -37,38 +70,6 @@ function handleSubmit(ev) {
   // const em = document.createElement('em')
   // em.textContent = name
   // details.appendChild(em)
-
-
-  // DAY 2 LAB
-  // const ul = document.createElement('ul')
-  // const liName = document.createElement('li')
-  // const liCol = document.createElement('li')
-  // const liAge = document.createElement('li')
-  // const cb = document.createElement('div')
-  // cb.style.width = 50
-  // cb.style.height = 30
-  // cb.style.backgroundColor = favoriteColor
-  // liName.textContent = `Name: ${name}`
-  // liCol.textContent = "Color Block: " + favoriteColor + " "
-  // liAge.textContent = `Age: ${age}`
-  // ul.appendChild(liName)
-  // liCol.appendChild(cb)
-  // ul.appendChild(liCol)
-  // ul.appendChild(liAge)
-  // details.appendChild(ul)
-  
-
-  // outerHTML includes opening and closing tags
-  // innterHTML only gets what is between the tags
-  details.innerHTML = `
-    <ul>
-      <li>Name: ${name}</li>
-      <li>Color Block: ${favoriteColor}${rederColor(favoriteColor).outerHTML}</li>
-      <li>Age: ${age}</li>
-    </ul>
-  `
-
-
 
 
 
