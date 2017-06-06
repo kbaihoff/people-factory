@@ -8,8 +8,18 @@ function handleSubmit(ev) {
   const name = f.personName.value
   const fcolor = f.faveColor.value
 
-  details.innerHTML = `<em>${name}<em>`
+  // details.innerHTML = `<em>${name}<em>`
   // Text content would take 'em' as part of the string, allows HTML to be put in the string
+
+  const em = document.createElement('em')
+  em.textContent = name
+  details.appendChild(em)
+
+
+
+
+
+
 
   const newTitle = "This page will be all about " + name
   document.querySelector('h1').style.color = fcolor
