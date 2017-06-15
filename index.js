@@ -1,95 +1,75 @@
-const personForm = document.querySelector('form#personForm') // don't need first form
-const more = document.querySelector('form#more')
+const PeopleFactory = {
+  // theForm: document.querySelector('form#personForm'),
 
-function renderColor(color) {
-  const colorDiv = document.createElement('div')
-  colorDiv.style.backgroundColor = color
-  colorDiv.style.width = '50px' // Must be strings
-  colorDiv.style.height = '30px'
-  return colorDiv
-}
-
-function renderListItem(fieldName, value) {
-  const li = document.createElement('li')
-  li.innerHTML = `${fieldName}: ${value}`
-  return li
-}
-
-function renderList(data) {
-  const ul = document.createElement('ul')
-  Object.keys(data).map(function(fieldName) {
-    const li = renderListItem(fieldName, data[fieldName])
-    ul.appendChild(li)
-  })
-  return ul
-}
-
-
-function handleSubmit(ev) {
-  ev.preventDefault()
-  const f = ev.target // should give us the object submitted (the form)
-  const details = document.querySelector('#details')
-  const fcolor = f.faveColor.value
+  init: function(formSelector) { // Allow someone to select which form to pass
+    const f = document.querySelector(formSelector)
+    f.addEventListener('submit', this.handleSubmit.bind(this)) // The form is calling even listener which calls handle, so form is "this"
+    // Not just "handleSubmit" because it is a property of PeopleFactory; this refers to this object
+    // Changed name to theForm because we used personForm as an ID; automatically makes a global variable
+    // Need to say this to refer to this object property: this.theForm.addEventListener('submit', this.handleSubmit)
+  },
   
-  const person = {
-    name: f.personName.value,
-    favoriteColor: renderColor(f.favoriteColor.value).outerHTML,
-    age: f.age.value,
-  }
+  // Make renderColor a property of the object; this is a "method" of the object
+  renderColor: function(color) {
+    const colorDiv = document.createElement('div')
+    colorDiv.style.backgroundColor = color
+    colorDiv.style.width = '100px'
+    colorDiv.style.height = '50px'
+    return colorDiv
+  }, // Need comma because it's another property
 
-  details.appendChild(renderList(person))
+  // Make renderListItem a property of the object; this is a "method" of the object
+  renderListItem: function(fieldName, value) {
+    const li = document.createElement('li')
+    const dt = document.createElement('dt')
+    const dd = document.createElement('dd')
+    dt.textContent = fieldName
+    dd.innerHTML = value
+    li.appendChild(dt)
+    li.appendChild(dd)
+    return li
+  },
 
-  // details.innerHTML = `
-  //   <ul>
-  //     <li>Name: ${name}</li>
-  //     <li>Color Block: ${favoriteColor}${renderColor(favoriteColor).outerHTML}</li>
-  //     <li>Age: ${age}</li>
-  //   </ul>
-  // `
+  // Make renderList a property of the object; this is a "method" of the object
+  renderList: function(personData) {
+    const list = document.createElement('dl')
+    // Loop over ['name', 'favoriteColor', 'age']
+    Object.keys(personData).map((fieldName) => {
+      const li = this.renderListItem(fieldName, personData[fieldName])
+      list.appendChild(li)
+      // if you say list.appendChild(li).bind(this), the method is invoked with parameters, so you would be binding this to the return value of apppend
+    })
+    return list
+  },
 
-  // const em = document.createElement('em')
-  // em.textContent = name
-  // details.appendChild(em)
+  handleSubmit: function(ev) {
+    ev.preventDefault()
+    const f = ev.target
+    const details = document.querySelector('#details')
+    
+    //debugger
 
-
-
-  const newTitle = "This page will be all about " + name
-  document.querySelector('h1').style.color = fcolor
-  document.querySelector('h1').textContent = newTitle // Changes heading 1
-  
-  if (fcolor != 'white' && fcolor != 'yellow') {
-    document.querySelector('p.emptyPara').style.color = 'white' // Changes text color
-  }
-  document.querySelector('p.emptyPara').style.backgroundColor = fcolor // Changes border color
-  
-  let newPara = name + " thinks that Xtern's logo should be " + fcolor + " instead because s/he loves it oh so much. Here are a couple things that are " + fcolor + ": "
-  const array = {
-    black: "charcoal, witches' cats, the night, most computer cords, TVs that are turned off, and lots of stuff during Halloween",
-    blue: "the sky, blueberries, water, the Microsoft Edge logo, most jeans, sapphires, uranus, and a variety of birds that I don't know the names of",
-    green: "grass, leaves, clovers, weeds, cacti, lettuce, cucumbers, pickles, celery, trees, and most other plants and bad-tasting vegetables",
-    magenta: "This is way too similar to pink for there to be a separate list",
-    pink: "cotton candy, flamingos, ham, jelly fish, tulips, Hello Kitty-themed stuff, roses, Valentine's Day decorations, and naked mole rats",
-    purple: "amethysts, eggplants, grapes, irises, lilacs, sea urchins, plums, jelly, turnips, violets, the GitHub Desktop logo, Northwestern, Barney the dinosaur, and one of the Teletubbies",
-    red: "cherries, strawberries, raspberries, tomatoes, cardinals, fire alarms, fire extinguishers, stop signs, and a lot of other stuff that have to do with safety...or impending doom",
-    white: "paper, snow, sugar, flour, ghosts, clouds, and a ton of other stuff I can't currently think of",
-    yellow: "higlighers, lemons, the centers of daisies, butter, corn, ducks, cheese, egg yolks, bees, honey, and various traffic signs that no one pays attention to",
-  }
-  newPara = newPara + (array[fcolor] || "Your color was not yet registered in the database")
-
-  document.querySelector('p.emptyPara').textContent = newPara // Changes paragraph
-  document.querySelector('form#more').style.display = 'block' // Make form 2 visible
-}
-function handleSubmit2(ev) {
-  ev.preventDefault()
-  const f = ev.target
-  const school = f.school.value
-  const state = f.homeState.value
-
-  document.querySelector('h3').textContent = "Here is your mini biography:"
-  const newPara = "Hello. My name is [still need to get name from previous form] and I am from " + state + ". I currently go to school at " + school + " in Indiana, which is a requirement to come to Xtern... I think. Anyway, yeah! Here is my second form!"
-
-  document.querySelector('p.e2').textContent = newPara
+    const person = {
+      name: f.personName.value,
+      favoriteColor: this.renderColor(f.favoriteColor.value).outerHTML,
+      age: f.age.value,
+    }
+    details.appendChild(this.renderList(person))
+  },
 }
 
-personForm.addEventListener('submit', handleSubmit)
-more.addEventListener('submit', handleSubmit2)
+PeopleFactory.init('form#personForm')
+
+
+
+// PeopleFactory.personForm access the personForm from outside the object
+// Equivalent to PeopleFactory['personForm']
+
+// PeopleFactory.renderColor('cornflowerblue') calls the method
+// Equivalent to PeopleFactory['renderColor']('blue')
+
+// IIFE:wrap the entire code in an anonymous function, wrap that whole function in parentheses, then add () at the end to immediately invoke function; helps prevent making sure no global variables because it makes a new variable scope
+
+// Could also wrap whole code in a block using {}
+
+// this. doesn't depend on where in the code it is, it's how it's called
